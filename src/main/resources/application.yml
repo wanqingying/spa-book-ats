@@ -1,0 +1,23 @@
+
+
+spring:
+  datasource:
+    druid:
+      username: wanqingying
+      password: wanqingying
+      url: jdbc:mysql://212.129.221.42:3306/jva?serverTimezone=UTC
+      driver-class-name: com.mysql.cj.jdbc.Driver
+
+logging:
+  level:
+    root: info
+  group:
+    sdu: wan.sdu.sp, wan.sdu.sp.api
+
+mybatis-plus:
+  global-config:
+    db-config:
+      id-type: auto
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+

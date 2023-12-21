@@ -13,6 +13,9 @@ logging:
     root: info
   group:
     sdu: wan.sdu.sp, wan.sdu.sp.api
+#  file:
+#    path: /Users/wanqingying/IdeaProjects/spa-book-ats/log
+  config: classpath:logback-spring.xml
 
 mybatis-plus:
   global-config:

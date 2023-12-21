@@ -6,4 +6,5 @@ import wan.sdu.sp.api.book.mybatis.entity.Book;
 
 @Mapper
 public interface BookDao extends BaseMapper<Book> {
+
 }

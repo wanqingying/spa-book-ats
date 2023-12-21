@@ -12,58 +12,59 @@ import java.util.Map;
 @RequestMapping("book")
 public class BookController {
     private BookServiceImpl bookService;
+
     @Autowired
-    public void bookService(BookServiceImpl bok){
-        this.bookService=bok;
+    public void bookService(BookServiceImpl bok) {
+        this.bookService = bok;
     }
 
     @PostMapping
-    public Ping save(@RequestBody Book book){
-        return Ping.koa(()->{
+    public Ping save(@RequestBody Book book) {
+        return Ping.koa(() -> {
             return bookService.save(book);
         });
     }
+
     @DeleteMapping("{id}")
-    public Ping remove(@PathVariable Integer id){
-        return Ping.koa(()->{
+    public Ping remove(@PathVariable Integer id) {
+        return Ping.koa(() -> {
             return bookService.removeById(id);
         });
     }
+
     @PutMapping
-    public Ping update(@RequestBody Book book){
-        return Ping.koa(()->{
-           if (book.getBookId()==null){
-               throw new Exception("book.id is null");
-           }else{
-               return bookService.updateById(book);
-           }
+    public Ping update(@RequestBody Book book) {
+        return Ping.koa(() -> {
+            if (book.getBookId() == null) {
+                throw new Exception("book.id is null");
+            } else {
+                return bookService.updateById(book);
+            }
         });
     }
 
     @GetMapping("{id}")
     public Ping getById(@PathVariable Integer id) throws Exception {
-        if (id==1)throw new Exception("id不能为1");
+        if (id == 1) throw new Exception("id不能为1");
         Book res = bookService.getById(id);
-        return res==null?Ping.fail("not exist",2): Ping.suc(res);
+        return res == null ? Ping.fail("not exist", 2) : Ping.suc(res);
     }
 
     @GetMapping("/{current}/{size}")
-    public Ping getByPage(@PathVariable Integer current,@PathVariable Integer size){
-        return Ping.koa(()-> bookService.getPage(current,size));
+    public Ping getByPage(@PathVariable Integer current, @PathVariable Integer size) {
+        return Ping.koa(() -> bookService.getPage(current, size));
     }
 
     @GetMapping("/page")
-    public Ping getSortPage(@RequestParam Map<String,Object> m){
-        return Ping.koa(()-> bookService.getPage((String) m.get("current"), (String) m.get("size")));
+    public Ping getSortPage(@RequestParam Map<String, Object> m) {
+        return Ping.koa(() -> bookService.getPage((String) m.get("current"), (String) m.get("size")));
     }
+
     @PostMapping("/filter")
-    public Ping filterPage(@RequestBody Map<String,Object> m){
-        Book book=new Book();
+    public Ping filterPage(@RequestBody Map<String, Object> m) {
+        Book book = new Book();
         book.setBookName((String) m.get("bookName"));
         book.setBookAuthor((String) m.get("bookAuthor"));
-        return Ping.koa(()-> bookService.filter((Integer) m.get("current"), (Integer) m.get("size"),book));
+        return Ping.koa(() -> bookService.filter((Integer) m.get("current"), (Integer) m.get("size"), book));
     }
-
-
-
 }

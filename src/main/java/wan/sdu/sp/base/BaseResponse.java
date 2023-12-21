@@ -4,6 +4,7 @@ public class BaseResponse<T> {
     private int code=1;
     private String message="ok";
     private T data;
+    private String traceId;
 
 
     public int getCode() {
@@ -28,6 +29,14 @@ public class BaseResponse<T> {
 
     public void setData(T data) {
         this.data = data;
+    }
+
+    public void setTraceId(String traceId) {
+        this.traceId = traceId;
+    }
+
+    public String getTraceId() {
+        return traceId;
     }
 
     public BaseResponse(T data) {
